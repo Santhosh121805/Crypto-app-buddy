@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useAuth } from '@/hooks/useAuth';
+import { Navigate } from 'react-router-dom';
 import ChatInterface from '@/components/ChatInterface';
 import SearchResults from '@/components/SearchResults';
 import CryptoPayment from '@/components/CryptoPayment';
+import Header from '@/components/Header';
 import { 
   Bot, 
   Plane, 
@@ -20,9 +23,24 @@ import {
 import heroImage from '@/assets/hero-travel.jpg';
 
 const Index = () => {
+  const { user, isLoading } = useAuth();
   const [showSearch, setShowSearch] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState<any>(null);
+
+  // Show loading spinner while checking auth
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  // Redirect to auth if not logged in
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
 
   const handleBookingRequest = (query: string) => {
     setShowSearch(true);
@@ -71,6 +89,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Header />
+      
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div 
