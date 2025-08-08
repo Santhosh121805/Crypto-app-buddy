@@ -1,6 +1,6 @@
 🧠 AI Booking Assistant for Travel with Crypto Payment
 📌 Primary Contact
-Name: S. Santhosh,
+Name: S. Santhosh,charithra g
 Telegram Handle: San Santhosh
 
 👥 Team
